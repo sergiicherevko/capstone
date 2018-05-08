@@ -25,11 +25,11 @@ UserSport.create(sport_level: "4", summary: "I'm a beginer", user_id: 1, sport_i
 
 
 
-Event.create(user_id: 1, sport_id: 1, description: "Lets go play some t tenis", available_datetime: "2018-04-10")
-Event.create(user_id: 1, sport_id: 2, description: "Let go rock it!", available_datetime: "2018-04-11")
-Event.create(user_id: 1, sport_id: 3, description: "Lets do it", available_datetime: "2018-04-12")
-Event.create(user_id: 2, sport_id: 1, description: "I'd like someone to teach me", available_datetime: "2018-04-10")
-Event.create(user_id: 3, sport_id: 1, description: "I'm really bad at this sport :(", available_datetime: "2018-04-10")
+Event.create(user_id: 1, name: "Table Tenis", image_url: "img/t_tennis.jpeg", sport_id: 1, description: "Lets go play some t tenis", available_datetime: "2018-04-10")
+Event.create(user_id: 1, name: "Rock climbing", image_url: "img/rock_climbing.jpg", sport_id: 2, description: "Let go rock it!", available_datetime: "2018-04-11")
+Event.create(user_id: 1, name: "Jiu jitsu", image_url: "img/jiu_jitsu.png", sport_id: 3, description: "Lets do it", available_datetime: "2018-04-12")
+Event.create(user_id: 2, name: "Table Tenis", image_url: "img/t_tennis.jpeg", sport_id: 1, description: "I'd like someone to teach me", available_datetime: "2018-04-10")
+Event.create(user_id: 3, name: "Table Tenis", image_url: "img/t_tennis.jpeg", sport_id: 1, description: "I'm really bad at this sport :(", available_datetime: "2018-04-10")
 
 
 Request.create(event_id: 1, user_id: 2, message: "I'd like to learn from you", accepted: true)
