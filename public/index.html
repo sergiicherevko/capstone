@@ -42,6 +42,9 @@
   </head>
   <body>
 
+
+
+
     <div id="vue-app">
       <!-- Page header -->
       <header class="header">
@@ -50,17 +53,9 @@
           <div class="container">
             <div class="content-holder d-flex justify-content-between">
               <div class="info d-flex">
-                <div class="dropdowns d-flex">
-                  <div class="dropdown"><a id="currency" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">USD<i class="fa fa-angle-down"></i></a>
-                    <div aria-labelledby="currency" class="dropdown-menu"><a href="#" class="dropdown-item">USD</a><a href="#" class="dropdown-item">EUR</a><a href="#" class="dropdown-item">JPY</a></div>
-                  </div>
-                  <div class="dropdown"><a id="language" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">EN<i class="fa fa-angle-down"></i></a>
-                    <div aria-labelledby="language" class="dropdown-menu"><a href="#" class="dropdown-item">EN</a><a href="#" class="dropdown-item">ES</a><a href="#" class="dropdown-item">FR</a></div>
-                  </div>
-                </div>
                 <div class="contact d-flex">
-                  <p><a href="mailto:info@company.com"> <i class="fa fa-envelope-o text-primary"></i><span class="d-none d-md-inline">info@company.com</span></a></p>
-                  <p> <i class="fa fa-phone text-primary"></i><span class="d-none d-md-inline">020 123-456-789</span></p>
+                  <p><a href="mailto:info@company.com"> <i class="fa fa-envelope-o text-primary"></i><span class="d-none d-md-inline">info@letsdoit.com</span></a></p>
+                  <p> <i class="fa fa-phone text-primary"></i><span class="d-none d-md-inline">123-456-789</span></p>
                 </div>
               </div>
 
@@ -95,14 +90,11 @@
                 </li>
                 <li class="nav-item"><a href="category.html" class="nav-link">Listings</a>
                 </li>
-                <li class="nav-item dropdown"><a id="navbarDropdownMenuLink" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Pages</a>
-                  <div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu"><a href="detail.html" class="dropdown-item">Listing detail</a><a href="post.html" class="dropdown-item">Blog post</a><a href="text.html" class="dropdown-item">Text page</a><a href="404.html" class="dropdown-item">404 - Not found</a><a href="contact.html" class="dropdown-item">Contact</a></div>
-                </li>
                 <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a>
                 </li>
                 <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a>
                 </li>
-              </ul><a href="#" class="btn navbar-btn btn-outline-primary mt-3 mt-lg-0 ml-lg-3">Submit a Listing</a>
+              </ul><a href="/#/create_event" class="btn navbar-btn btn-outline-primary mt-3 mt-lg-0 ml-lg-3">Submit an Event</a> 
             </div>
           </div>
         </nav>
@@ -182,24 +174,12 @@
     <section style="background: url('img/hero-bg.jpg') no-repeat;" class="hero d-flex align-items-center">
       <div class="container">
         <h1>Let's <span class="text-primary">play    </span> sports!</h1>
-        <p class="text-hero">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+        <p class="text-hero">(Only 3 sport available now: table tenis, rock climbing and jiu jitsu)</p>
         <div class="search-bar">
           <form action="#">
             <div class="row">
-              <div class="form-group col-lg-4">
-                <input type="search" name="search" placeholder="What are you searching for?">
-              </div>
-              <div class="form-group col-lg-3">
-                <input type="text" name="location" placeholder="Location" id="location">
-                <label for="location" class="location"><i class="fa fa-dot-circle-o"></i></label>
-              </div>
-              <div class="form-group col-lg-3">
-                <select title="Categories &lt;i class=&quot;fa fa-angle-down&quot;&gt;&lt;/i&gt;" class="listing-categories">
-                  <option value="small">Restaurants</option>
-                  <option value="medium">Hotels</option>
-                  <option value="large">Cafes</option>
-                  <option value="x-large">Garages</option>
-                </select>
+              <div class="form-group col-lg-10">
+                <input type="search" name="search" placeholder="What sport are you searching for?">
               </div>
               <div class="form-group col-lg-2">
                 <input type="submit" value="Search" class="submit">
@@ -457,38 +437,75 @@
     </section>
 </template>
 
-<!-- Contact / Create Event -->
-<template class="padding-small">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4">
-        <div class="contact-icon">
-          <div class="icon icon-map-1"></div>
+<!-- Create Event -->
+<template id="create-event">
+  <div class="vue-component">
+
+    <section class="padding-small">
+      <div class="container">
+        <header class="mb-5">
+          <h2 class="heading-line">Create event form</h2>
+        </header>
+        <div class="row">
+          <div class="col-md-7">
+            <div id="contact-form" class="custom-form form">
+              <div class="controls">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label for="name" class="form-label">Event Name</label>
+                      <input v-model="eventName" type="text" name="name" id="name" placeholder="Enter event name" required="required" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label for="name" class="form-label">Sport</label>
+
+                      <select v-model="sport_id">
+                        <option v-for="sport in sports" v-bind:value="sport.id">
+                          {{ sport.name }}
+                        </option>
+                      </select>
+
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label for="name" class="form-label">Address</label>
+                      <input v-model="address" type="text" name="name" id="name" placeholder="Enter your firstname" required="required" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label for="surname" class="form-label">Available Datetime</label>
+                      <input v-model="available_datetime" type="datetime-local" name="surname" id="surname" placeholder="Available datetime" required="required" class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="message" class="form-label">Desciption: </label>
+                  <textarea v-model="description" rows="4" name="message" id="message" placeholder="Enter your message" required="required" class="form-control"></textarea>
+                </div>
+                <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <p>It's not easy to estimate your level. Please provide some details about your previous experience like how often you play this sport, did you take a class for this sport or did you self-taught etc.</p>
+            <div class="social">
+              <ul class="list-inline">
+                <li class="list-inline-item"><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                <li class="list-inline-item"><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                <li class="list-inline-item"><a href="#" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                <li class="list-inline-item"><a href="#" target="_blank"><i class="fa fa-behance"></i></a></li>
+                <li class="list-inline-item"><a href="#" target="_blank"><i class="fa fa-pinterest">                                             </i></a></li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <h3>Address</h3>
-        <p>13/25 New Avenue<br>New Heaven, 45Y 73J<br>England, <strong>Great Britain</strong></p>
       </div>
-      <div class="col-md-4">
-        <div class="contact-icon">
-          <div class="icon icon-support"></div>
-        </div>
-        <h3>Call center</h3>
-        <p>This number is toll free if calling from Great Britain otherwise we advise you to use the electronic form of communication.</p>
-        <p><strong>+33 555 444 333</strong></p>
-      </div>
-      <div class="col-md-4">
-        <div class="contact-icon">
-          <div class="icon icon-email"></div>
-        </div>
-        <h3>Electronic support</h3>
-        <p>Please feel free to write an email to us or to use our electronic ticketing system.</p>
-        <ul class="list-style-none">
-          <li><a href="mailto:">info@fakeemail.com</a></li>
-          <li><a href="#">
-              Ticketio
-               - our ticketing support platform      </a></li>
-        </ul>
-      </div>
-    </div>
+    </section>
+    
   </div>
 </template>
+

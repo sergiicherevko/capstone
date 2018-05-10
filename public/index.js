@@ -11,11 +11,57 @@ var HomePage = {
     axios.get("/v1/events").then(
       function(response) {
         this.events = response.data;
+        console.log("events", this.events);
       }.bind(this)
     );
   },
   methods: {},
   computed: {}
+};
+
+var CreateEventPage = {
+  template: "#create-event",
+  data: function() {
+    return {
+      // image_url: "",
+      // sport_id: "",
+      eventName: "",
+      address: "",
+      available_datetime: "",
+      description: "",
+      sports: [],
+      sport_id: 1,
+      errors: []  
+    };
+  },
+  created: function() {
+    axios.get("/v1/sports").then(function(response) {
+      console.log('sports', response.data);
+      this.sports = response.data;
+    }.bind(this))
+  },
+  methods: {
+    submit: function() {
+      var params = {
+        // input_image_url: this.image_url,
+        input_sport_id: this.sport_id,
+        input_event_name: this.eventName,
+        input_address: this.address,
+        input_available_datetime: this.available_datetime,
+        input_description: this.description
+      };
+      axios
+        .post("/v1/events", params)
+        .then(function(response) {
+          router.push("/");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this)
+        );
+    }
+  }
 };
 
 var Event = {
@@ -110,7 +156,8 @@ var router = new VueRouter({
     { path: "/", component: HomePage },
     { path: "/signup", component: SignupPage },
     { path: "/login", component: LoginPage },
-    { path: "/logout", component: LogoutPage }        
+    { path: "/logout", component: LogoutPage },  
+    { path: "/create_event", component: CreateEventPage }        
   ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };

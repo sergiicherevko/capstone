@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     post "/user_sports" => "user_sports#create"
     #events
     get "/events" => "events#index"
+    post "/events" => "events#create"
     #requests
     post "/requests" => "requests#create"
     get "/requests" => "requests#index"

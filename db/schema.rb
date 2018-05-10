@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 20180412000137) do
   create_table "events", force: :cascade do |t|
     t.integer "user_id"
     t.string "name"
-    t.string "image_url"
     t.string "address"
     t.string "available_datetime"
     t.integer "sport_id"
@@ -40,6 +39,7 @@ ActiveRecord::Schema.define(version: 20180412000137) do
     t.string "name"
     t.integer "players_req"
     t.boolean "indoor"
+    t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
