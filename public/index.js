@@ -4,7 +4,9 @@ var HomePage = {
   template: "#home-page",
   data: function() {
     return {
-      events: []
+      events: [],
+      sportFilter: "",
+      map: null
     };
   },
   created: function() {
@@ -12,10 +14,65 @@ var HomePage = {
       function(response) {
         this.events = response.data;
         console.log("events", this.events);
-      }.bind(this)
+        console.log('put events on map', this.map);
+
+        var map = this.map;
+              var geocoder = new google.maps.Geocoder();
+              this.events.forEach(
+                function(event) {
+                  geocoder.geocode({ address: event.address }, function(
+                    results,
+                    status
+                  ) {
+                    console.log("geocode", event.address, results, status);
+                    if (status === "OK") {
+                      map.setCenter(results[0].geometry.location);
+                      this.marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location
+                      });
+                    } else {
+                      alert(
+                        "Geocode was not successful for the following reason: " +
+                          status
+                      );
+                    }
+                  });
+                }.bind(this)
+              );
+            }.bind(this)
     );
   },
-  methods: {},
+  mounted: function() {
+    var chase_tower = { lat: 39.769653, lng: -86.157143 };
+    var map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 14,
+      center: chase_tower
+    });
+    this.map = map;
+    var places = [];
+    places.forEach(function(place) {
+      var marker = new google.maps.Marker({
+        position: place,
+        map: map
+      });
+
+      var infowindow = new google.maps.InfoWindow({
+        content: place.description
+      });
+
+      marker.addListener("click", function() {
+        infowindow.open(map, marker);
+      });
+    });
+  },
+  methods: {
+    validSport: function(inputEventName) {
+      var lowerInputEventName = inputEventName.name.toLowerCase();
+      var lowerSportFilter = this.sportFilter.toLowerCase();
+      return lowerInputEventName.includes(lowerSportFilter);
+    }
+  },
   computed: {}
 };
 
@@ -23,8 +80,6 @@ var CreateEventPage = {
   template: "#create-event",
   data: function() {
     return {
-      // image_url: "",
-      // sport_id: "",
       eventName: "",
       address: "",
       available_datetime: "",
@@ -52,6 +107,40 @@ var CreateEventPage = {
       };
       axios
         .post("/v1/events", params)
+        .then(function(response) {
+          router.push("/");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this)
+        );
+    }
+  }
+};
+
+var CreateRequestPage = {
+  template: "#create-request",
+  data: function() {
+    return {
+      message: "",
+      errors: []  
+    };
+  },
+  created: function() {
+    axios.get("/v1/requests").then(function(response) {
+      console.log('requests', response.data);
+      this.requests = response.data;
+    }.bind(this))
+  },
+  methods: {
+    submit: function() {
+      var params = {
+        input_message: this.message,
+        input_event_id: this.$route.params.id
+      };
+      axios
+        .post("/v1/requests", params)
         .then(function(response) {
           router.push("/");
         })
@@ -157,7 +246,8 @@ var router = new VueRouter({
     { path: "/signup", component: SignupPage },
     { path: "/login", component: LoginPage },
     { path: "/logout", component: LogoutPage },  
-    { path: "/create_event", component: CreateEventPage }        
+    { path: "/create_event", component: CreateEventPage },        
+    { path: "/events/:id/create_request", component: CreateRequestPage }        
   ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };

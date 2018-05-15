@@ -1,10 +1,10 @@
 class V1::RequestsController < ApplicationController
   def create
     request = Request.new(
-      user_id: params[:user_id],
-      event_id: params[:event_id],
+      user_id: current_user.id,
+      event_id: params[:input_event_id],
       accepted: false,
-      message: params[:message]
+      message: params[:input_message]
       )
     request.save
     render json: request.as_json
