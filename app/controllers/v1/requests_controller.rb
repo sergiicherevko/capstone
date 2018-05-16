@@ -11,7 +11,7 @@ class V1::RequestsController < ApplicationController
   end
 
   def index
-    requests = Request.all
+    requests = Request.all.select {|request| request.event.user_id == current_user.id}
     render json: requests.as_json
   end
 

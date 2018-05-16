@@ -46,6 +46,9 @@
       #map {
         height: 400px;
       }
+      .highlightedevent {
+        background-color: #5f9ea0;
+      }
    </style>
   </head>
   <body>
@@ -68,14 +71,16 @@
               </div>
 
               <div class="CTAs">
-                <a href="/#/login" class="login">
+                <a href="/#/login" class="login" v-if="!loggedIn">
                   <i class="fa fa-sign-in"></i>
                   <span class="d-none d-md-inline">Login</span>
                 </a>
-                <a href="/#/logout" class="login"> 
+
+                <a href="/#/logout" class="login" v-if="loggedIn"> 
                   <i class="fa fa-sign-in"></i>
                   <span class="d-none d-md-inline">Logout</span>
                 </a>
+
                 <a href="/#/signup" class="login"> 
                   <i class="fa fa-user"></i>
                   <span class="d-none d-md-inline">Register</span>
@@ -96,7 +101,7 @@
                 <!-- Search-->
                 <li class="nav-item"><a href="index.html" class="nav-link active">Home</a>
                 </li>
-                <li class="nav-item"><a href="category.html" class="nav-link">Listings</a>
+                <li class="nav-item"><a href="/#/requests" class="nav-link">My Requests</a>
                 </li>
                 <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a>
                 </li>
@@ -200,7 +205,7 @@
 
     <!-- Events -->
     <div class="row block" style="margin: 10px">
-      <div class="col-lg-3" v-for="event in events" v-if = "validSport(event)">
+      <div class="col-lg-3"  v-for="event in events" v-if = "validSport(event)">
         <!-- Item-->
         <div class="item listing-item">
           <div class="item-inner">
@@ -213,7 +218,7 @@
               <div class="favorite"><i class="icon-heart"> </i></div>
             </div>
           </div>
-          <div class="description"> 
+          <div class="description" v-bind:class="{highlightedevent: event === selectedEvent}"> 
             <p> {{event.description}} </p>
           </div>
         </div>
@@ -221,7 +226,6 @@
     </div>
     <div id="map"></div>
   </div>
-
 </template>
 
 <template id="signup-page">
@@ -520,7 +524,6 @@
   </div>
 </template>
 
-
 <!-- Create Request -->
 <template id="create-request">
   <div class="vue-component">
@@ -560,3 +563,42 @@
     
   </div>
 </template>
+
+<!-- See requests -->
+<template id="all-requests">
+  <div class="vue-component">
+    <h2 style="margin-top: 40px; margin-left: 80px; text-align: center;">Requests</h2>
+    <div class="row" v-for="request in requests" class="comments">
+      <div class="col-lg-6">
+        <div style="margin: 10px">
+          <div class="comment">
+            <div class="comment-header d-flex justify-content-between">
+              <div class="user d-flex align-items-center">
+                <div class="image"><img src="img/user.svg" alt="..." class="img-fluid rounded-circle"></div>
+                <div class="title"><strong>Jabi Hernandez</strong></div>
+              </div>
+              <ul class="rate list-inline">
+                <p>Athlete Rating</p>
+                <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                <li class="list-inline-item"><i class="fa fa-star"></i></li>
+              </ul>
+            </div>
+            <h3 style="margin-top: 40px; margin-left: 70px;">Message:</h3>
+            <div class="comment-body">
+              <p>{{ request.message }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <button type="button" class="btn btn-success" style="margin: 50px">Accept</button>
+        <button button type="button" class="btn btn-danger" style="margin: 50px">Decline</button>
+      </div>
+    </div>
+
+
+  </div>
+</div>    

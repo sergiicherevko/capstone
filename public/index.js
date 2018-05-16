@@ -5,6 +5,7 @@ var HomePage = {
   data: function() {
     return {
       events: [],
+      selectedEvent: {},
       sportFilter: "",
       map: null
     };
@@ -15,32 +16,44 @@ var HomePage = {
         this.events = response.data;
         console.log("events", this.events);
         console.log('put events on map', this.map);
+        var that = this;
 
         var map = this.map;
-              var geocoder = new google.maps.Geocoder();
-              this.events.forEach(
-                function(event) {
-                  geocoder.geocode({ address: event.address }, function(
-                    results,
+        var geocoder = new google.maps.Geocoder();
+        this.events.forEach(
+          function(event) {
+            geocoder.geocode({ address: event.address }, function(
+              results,
+              status
+            ) {
+              console.log("geocode", event.address, results, status);
+              if (status === "OK") {
+                map.setCenter(results[0].geometry.location);
+                this.marker = new google.maps.Marker({
+                  map: map,
+                  position: results[0].geometry.location
+                });
+
+
+                marker.addListener('mouseover', function() {
+                  that.selectedEvent = event;
+                });
+
+                marker.addListener('mouseout', function() {
+                  that.selectedEvent = {};
+                });
+
+
+              } else {
+                alert(
+                  "Geocode was not successful for the following reason: " +
                     status
-                  ) {
-                    console.log("geocode", event.address, results, status);
-                    if (status === "OK") {
-                      map.setCenter(results[0].geometry.location);
-                      this.marker = new google.maps.Marker({
-                        map: map,
-                        position: results[0].geometry.location
-                      });
-                    } else {
-                      alert(
-                        "Geocode was not successful for the following reason: " +
-                          status
-                      );
-                    }
-                  });
-                }.bind(this)
-              );
-            }.bind(this)
+                );
+              }
+            });
+          }.bind(this)
+        );
+      }.bind(this)
     );
   },
   mounted: function() {
@@ -218,8 +231,9 @@ var LoginPage = {
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + response.data.jwt;
           localStorage.setItem("jwt", response.data.jwt);
+          this.$root.loggedIn = true;
           router.push("/");
-        })
+        }.bind(this))
         .catch(
           function(error) {
             this.errors = ["Invalid email or password."];
@@ -236,8 +250,25 @@ var LogoutPage = {
   created: function() {
     axios.defaults.headers.common["Authorization"] = undefined;
     localStorage.removeItem("jwt");
+    this.$root.loggedIn = false;
     router.push("/");
   }
+};
+
+var AllRequestsPage = {
+  template: "#all-requests",
+  data: function() {
+    return {
+      requests: []
+    };
+  },
+  created: function() {
+    axios.get("/v1/requests").then(function(response) {
+      console.log('requests', response.data);
+      this.requests = response.data;
+    }.bind(this))
+  },
+  methods: {}
 };
 
 var router = new VueRouter({
@@ -247,7 +278,8 @@ var router = new VueRouter({
     { path: "/login", component: LoginPage },
     { path: "/logout", component: LogoutPage },  
     { path: "/create_event", component: CreateEventPage },        
-    { path: "/events/:id/create_request", component: CreateRequestPage }        
+    { path: "/events/:id/create_request", component: CreateRequestPage },    
+    { path: "/requests", component: AllRequestsPage }        
   ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };
@@ -258,10 +290,14 @@ var router = new VueRouter({
 var app = new Vue({
   el: "#vue-app",
   router: router,
+  data: function() {
+    loggedIn: false
+  },
   created: function() {
     var jwt = localStorage.getItem("jwt");
     if (jwt) {
       axios.defaults.headers.common["Authorization"] = jwt;
+      this.loggedIn = true;
     }
   }
 });
