@@ -41,45 +41,50 @@
         <div class="container">
           <div class="content-holder d-flex justify-content-between">
             <div class="info d-flex">
-              <div class="dropdowns d-flex">
-                <div class="dropdown"><a id="currency" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">USD<i class="fa fa-angle-down"></i></a>
-                  <div aria-labelledby="currency" class="dropdown-menu"><a href="#" class="dropdown-item">USD</a><a href="#" class="dropdown-item">EUR</a><a href="#" class="dropdown-item">JPY</a></div>
-                </div>
-                <div class="dropdown"><a id="language" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">EN<i class="fa fa-angle-down"></i></a>
-                  <div aria-labelledby="language" class="dropdown-menu"><a href="#" class="dropdown-item">EN</a><a href="#" class="dropdown-item">ES</a><a href="#" class="dropdown-item">FR</a></div>
-                </div>
-              </div>
               <div class="contact d-flex">
-                <p><a href="mailto:info@company.com"> <i class="fa fa-envelope-o text-primary"></i><span class="d-none d-md-inline">info@company.com</span></a></p>
-                <p> <i class="fa fa-phone text-primary"></i><span class="d-none d-md-inline">020 123-456-789</span></p>
+                <p><a href="mailto:info@company.com"> <i class="fa fa-envelope-o text-primary"></i><span class="d-none d-md-inline">info@letsdoit.com</span></a></p>
+                <p> <i class="fa fa-phone text-primary"></i><span class="d-none d-md-inline">123-456-789</span></p>
               </div>
             </div>
-            <div class="CTAs"><a href="#" class="login"><i class="fa fa-sign-in"></i><span class="d-none d-md-inline">Login</span></a><a href="#" class="login"> <i class="fa fa-user"></i><span class="d-none d-md-inline">Register</span></a></div>
+
+            <div class="CTAs">
+              <a href="/#/login" class="login" v-if="!loggedIn">
+                <i class="fa fa-sign-in"></i>
+                <span class="d-none d-md-inline">Login</span>
+              </a>
+
+              <a href="/#/logout" class="login" v-if="loggedIn"> 
+                <i class="fa fa-sign-in"></i>
+                <span class="d-none d-md-inline">Logout</span>
+              </a>
+
+              <a href="/#/signup" class="login"> 
+                <i class="fa fa-user"></i>
+                <span class="d-none d-md-inline">Register</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
       <!-- Main Navbar-->
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <!-- Navbar Brand --><a href="index.html" class="navbar-brand"><img src="img/logo.png" alt="..."></a>
+          <!-- Navbar Brand --><a href="/#/" class="navbar-brand"><img src="img/letsdoitlogo.png" alt="..."></a>
           <!-- Toggle Button-->
           <button type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span>Menu</span><i class="fa fa-bars"></i></button>
           <!-- Navbar Menu -->
           <div id="navbarcollapse" class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
               <!-- Search-->
-              <li class="nav-item"><a href="index.html" class="nav-link">Home</a>
+              <li class="nav-item"><a href="/#/" class="nav-link active">Home</a>
               </li>
-              <li class="nav-item"><a href="category.html" class="nav-link">Listings             </a>
+              <li class="nav-item"><a href="/#/requests" class="nav-link">My Requests</a>
               </li>
-              <li class="nav-item dropdown"><a id="navbarDropdownMenuLink" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Pages</a>
-                <div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu"><a href="detail.html" class="dropdown-item">Listing detail</a><a href="post.html" class="dropdown-item">Blog post</a><a href="text.html" class="dropdown-item">Text page</a><a href="404.html" class="dropdown-item">404 - Not found</a><a href="contact.html" class="dropdown-item">Contact</a></div>
-              </li>
-              <li class="nav-item"><a href="blog.html" class="nav-link active">Blog</a>
+              <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a>
               </li>
               <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a>
               </li>
-            </ul><a href="#" class="btn navbar-btn btn-outline-primary mt-3 mt-lg-0 ml-lg-3">Submit a Listing</a>
+            </ul><a href="/#/create_event" class="btn navbar-btn btn-outline-primary mt-3 mt-lg-0 ml-lg-3">Submit an Event</a> 
           </div>
         </div>
       </nav>
@@ -88,7 +93,7 @@
     <section style="background: url('img/blog-hero-bg.jpg') no-repeat;" class="hero">
       <div class="container">
         <ul class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="/#/">Home</a></li>
           <li class="breadcrumb-item active">Blog</li>
         </ul>
         <h1>Our Blog</h1>
@@ -110,7 +115,7 @@
               </div>
             </div>
             <div class="post-content"><a href="#">
-                <h3>Top ten cafes to visit in Toronto</h3></a>
+                <h3>Sed ut perspiciatis unde omnis iste</h3></a>
               <div class="post-meta">15 APR | 2017 | No Comments</div>
               <p class="text-muted">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo...</p><a href="post.html" class="has-lines read-more">Read More</a>
             </div>
@@ -127,7 +132,7 @@
               </div>
             </div>
             <div class="post-content"><a href="#">
-                <h3>Hotels for all budgets</h3></a>
+                <h3>Sed ut perspiciatis unde omnis iste</h3></a>
               <div class="post-meta">15 APR | 2017 | No Comments</div>
               <p class="text-muted">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo...</p><a href="post.html" class="has-lines read-more">Read More</a>
             </div>
@@ -144,7 +149,7 @@
               </div>
             </div>
             <div class="post-content"><a href="#">
-                <h3>Hotels for all budgets</h3></a>
+                <h3>Sed ut perspiciatis unde omnis iste</h3></a>
               <div class="post-meta">15 APR | 2017 | No Comments</div>
               <p class="text-muted">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo...</p><a href="post.html" class="has-lines read-more">Read More</a>
             </div>
@@ -232,7 +237,7 @@
             <h3>Useful links</h3>
             <div class="menus d-flex">
               <ul class="list-unstyled">
-                <li> <a href="index.html">Homepage</a></li>
+                <li> <a href="/#/">Homepage</a></li>
                 <li> <a href="category.html">Listings detail</a></li>
                 <li> <a href="detail.html">Listing detail</a></li>
                 <li> <a href="blog.html">Blog</a></li>

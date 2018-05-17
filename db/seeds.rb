@@ -17,23 +17,17 @@ Sport.create(image_url: "img/jiu_jitsu.png", name: "Jiu Jitsu", players_req: 2, 
 Sport.create(image_url: "", name: "5 on 5 Basketball", players_req: 10, indoor: false)
 
 
-UserSport.create(sport_level: "10", summary: "Try me", user_id: 1, sport_id: 1)
-UserSport.create(sport_level: "3", summary: "I'm learning", user_id: 2, sport_id: 1)
-UserSport.create(sport_level: "4", summary: "I'm ok, by Sergii is the best", user_id: 3, sport_id: 1)
-UserSport.create(sport_level: "5", summary: "I'd like to learn from Sergii", user_id: 1, sport_id: 2)
-UserSport.create(sport_level: "4", summary: "I'm a beginer", user_id: 1, sport_id: 3)
+UserSport.create(sport_level: "10", summary: "Self taught, but have been playing for 5 year and feel that I can compet with advanced players", user_id: 1, sport_id: 1)
+UserSport.create(sport_level: "3", summary: "Just looking for someone who can belay me and I will belay you.", user_id: 2, sport_id: 2)
+UserSport.create(sport_level: "4", summary: "I've been in Jiu Jitsu for 10 year, looking for very experienced opponents.", user_id: 3, sport_id: 3)
 
 
 
-Event.create(user_id: 1, name: "Table Tenis", sport_id: 1, description: "Lets go play some t tenis", available_datetime: "2018-04-10")
-Event.create(user_id: 1, name: "Rock climbing", sport_id: 2, description: "Let go rock it!", available_datetime: "2018-04-11")
-Event.create(user_id: 1, name: "Jiu jitsu", sport_id: 3, description: "Lets do it", available_datetime: "2018-04-12")
-Event.create(user_id: 2, name: "Table Tenis", sport_id: 1, description: "I'd like someone to teach me", available_datetime: "2018-04-10")
-Event.create(user_id: 3, name: "Table Tenis", sport_id: 1, description: "I'm really bad at this sport :(", available_datetime: "2018-04-10")
+Event.create(user_id: 1, address: "140 S Clark St #180, Chicago, IL 60603", name: "Table Tenis", sport_id: 1, description: "Self taught, but have been playing for 5 year and feel that I can compet with advanced players", available_datetime: "2018-04-10")
+Event.create(user_id: 1, address: "337 E Randolph Service St, Chicago, IL 60601", name: "Rock climbing", sport_id: 2, description: "I played this sport at college and I'm decent.", available_datetime: "2018-04-11")
+Event.create(user_id: 1, address: "820 N Orleans St, Chicago, IL 60610", name: "Jiu jitsu", sport_id: 3, description: "I've been in Jiu Jitsu for 10 year, looking for very experienced opponents.", available_datetime: "2018-04-12")
 
 
-Request.create(event_id: 1, user_id: 2, message: "I'd like to learn from you", accepted: true)
-Request.create(event_id: 1, user_id: 3, message: "I'm not good at this sport, I'd like to learn from a pro", accepted: true)
-Request.create(event_id: 2, user_id: 2, message: "I'd be able to play this day, let do it!", accepted: false)
-Request.create(event_id: 1, user_id: 3, message: "Hey, I'd like to join you if you don't mind", accepted: false)
-Request.create(event_id: 3, user_id: 2, message: "Can I please please play with", accepted: true)
+Request.create(event_id: 1, user_id: 2, message: "I played this sport in college for 3 years. Looking for someone who really pationed about this sport", accepted: true)
+Request.create(event_id: 2, user_id: 3, message: "Let's do it! I like to do it for fun.", accepted: true)
+Request.create(event_id: 3, user_id: 2, message: "I've practiced Jiu Jitsu for 6 years. Would you like to sparring?", accepted: false)

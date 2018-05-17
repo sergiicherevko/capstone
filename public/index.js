@@ -45,7 +45,7 @@ var HomePage = {
 
 
               } else {
-                alert(
+                console.log(
                   "Geocode was not successful for the following reason: " +
                     status
                 );
