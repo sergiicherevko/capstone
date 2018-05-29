@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 User.create(email: "sergii@email.com", password: "password", first_name: "Sergii", last_name: "Cherevko", age: "32", height: "6", weight: "165", picture_url: "")
-User.create(email: "vince@email.com", password: "password", first_name: "Vince", last_name: "WhateverVinceLastName", age: "32", height: "6", weight: "160", picture_url: "")
+User.create(email: "jabi@email.com", password: "password", first_name: "Jabi", last_name: "Hernandez", age: "32", height: "6", weight: "160", picture_url: "")
 User.create(email: "ahsan@email.com", password: "password", first_name: "Ahsan", last_name: "WhateverAhsanLastName", age: "15", height: "6", weight: "180", picture_url: "")
 
 #name players req indoor
